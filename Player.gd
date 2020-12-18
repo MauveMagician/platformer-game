@@ -44,7 +44,7 @@ func _physics_process(_delta):
 		self.buffered_jump = true
 		$JumpBufferTimer.start()
 	#Mario jump code - stop jumping on button release
-	elif Input.is_action_just_released("jump"):
+	elif Input.is_action_just_released("jump") and self.y_velo < 0:
 		self.y_velo = 0
 	if grounded and self.y_velo >= 5:
 		self.can_coyote = true
@@ -55,6 +55,20 @@ func _physics_process(_delta):
 		$CoyoteTimer.start()
 	if y_velo > self.MAX_FALL_SPEED:
 		y_velo = MAX_FALL_SPEED
+	#Corner Correction
+	if not grounded:
+		if facing_right:
+			for ray in $CornerCorrection_Right.get_children():
+				if $CornerCorrection_Left.get_child(0).is_colliding():
+						break
+				if ray.is_colliding():
+					self.speed -= Vector2(2,0)
+		else:
+			for ray in $CornerCorrection_Left.get_children():
+				if $CornerCorrection_Right.get_child(0).is_colliding():
+						break
+				if ray.is_colliding():
+					self.position += Vector2(2,0)
 	#warning-ignore:return_value_discarded
 	self.move_and_slide(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,-1))
 
@@ -68,3 +82,4 @@ func _on_CoyoteTimer_timeout():
 
 func _on_JumpBufferTimer_timeout():
 	self.buffered_jump = false
+

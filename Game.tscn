@@ -39,6 +39,8 @@ tracks/1/keys = {
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 3
+collision_mask = 3
 format = 1
 tile_data = PoolIntArray( 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0 )
 
@@ -50,9 +52,6 @@ limit_smoothed = true
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 24, 88 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource( 1 )
@@ -79,5 +78,33 @@ one_shot = true
 process_mode = 0
 wait_time = 0.15
 one_shot = true
+
+[node name="CornerCorrection_Left" type="Node2D" parent="Player"]
+
+[node name="RayCast2D" type="RayCast2D" parent="Player/CornerCorrection_Left"]
+position = Vector2( -8, -7 )
+enabled = true
+cast_to = Vector2( 0, -8 )
+collision_mask = 2
+
+[node name="RayCast2D2" type="RayCast2D" parent="Player/CornerCorrection_Left"]
+position = Vector2( -7, -7 )
+enabled = true
+cast_to = Vector2( 0, -8 )
+collision_mask = 2
+
+[node name="CornerCorrection_Right" type="Node2D" parent="Player"]
+
+[node name="RayCast2D" type="RayCast2D" parent="Player/CornerCorrection_Right"]
+position = Vector2( 8, -7 )
+enabled = true
+cast_to = Vector2( 0, -8 )
+collision_mask = 2
+
+[node name="RayCast2D2" type="RayCast2D" parent="Player/CornerCorrection_Right"]
+position = Vector2( 7, -7 )
+enabled = true
+cast_to = Vector2( 0, -8 )
+collision_mask = 2
 [connection signal="timeout" from="Player/CoyoteTimer" to="Player" method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Player/JumpBufferTimer" to="Player" method="_on_JumpBufferTimer_timeout"]
