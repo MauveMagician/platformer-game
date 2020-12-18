@@ -62,7 +62,7 @@ func _physics_process(_delta):
 				if $CornerCorrection_Left.get_child(0).is_colliding():
 						break
 				if ray.is_colliding():
-					self.speed -= Vector2(2,0)
+					self.position -= Vector2(2,0)
 		else:
 			for ray in $CornerCorrection_Left.get_children():
 				if $CornerCorrection_Right.get_child(0).is_colliding():
