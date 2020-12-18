@@ -5,6 +5,7 @@ const MAX_MOVE_SPEED = 120
 const JUMP_FORCE = 500
 const GRAVITY = 45
 const MAX_FALL_SPEED = 300
+const PEEK_TOLERANCE = 30
 
 var y_velo = 0
 var speed = 0
@@ -12,6 +13,9 @@ var facing_right = true
 var coyote = false
 var can_coyote = true
 var buffered_jump = false
+var v_corrected = false
+var look_direction = Vector2(1,0)
+var peek_count = 0
 
 func _physics_process(_delta):
 	#Horizontal Movement Code
@@ -34,6 +38,24 @@ func _physics_process(_delta):
 	self.speed = min(self.speed, self.MAX_MOVE_SPEED)
 	#Vertical Movement Code
 	y_velo += self.GRAVITY
+	#Camera Peeking
+	if Input.is_action_pressed("look_up"):
+		if peek_count < 0:
+			peek_count = 0
+		self.peek_count += 1
+		if self.peek_count >= self.PEEK_TOLERANCE:
+			self.look_direction.y = -1
+			self.peek_count = self.PEEK_TOLERANCE
+	elif Input.is_action_pressed("look_down"):
+		if peek_count > 0:
+			peek_count = 0
+		self.peek_count -= 1
+		if self.peek_count <= -1 * self.PEEK_TOLERANCE:
+			self.look_direction.y = +1
+			self.peek_count = self.PEEK_TOLERANCE
+	else:
+		look_direction.y = 0
+		self.peek_count = 0
 	#Half Gravity Jump Peak
 	if not grounded and abs(y_velo) < (self.GRAVITY * 2):
 		y_velo -= 0.5 * self.GRAVITY
@@ -56,24 +78,30 @@ func _physics_process(_delta):
 	if y_velo > self.MAX_FALL_SPEED:
 		y_velo = MAX_FALL_SPEED
 	#Corner Correction
-	if not grounded:
-		if facing_right:
+	if not grounded and not v_corrected and abs(y_velo) > 100:
+		if facing_right and not Input.is_action_pressed("move_right"):
 			for ray in $CornerCorrection_Right.get_children():
-				if $CornerCorrection_Left.get_child(0).is_colliding():
+				if $CornerCorrection_Left.get_child(1).is_colliding():
 						break
 				if ray.is_colliding():
-					self.position -= Vector2(2,0)
-		else:
+					self.position -= Vector2(3,0)
+					break
+		elif not Input.is_action_pressed("move_left"):
 			for ray in $CornerCorrection_Left.get_children():
-				if $CornerCorrection_Right.get_child(0).is_colliding():
+				if $CornerCorrection_Right.get_child(1).is_colliding():
 						break
 				if ray.is_colliding():
-					self.position += Vector2(2,0)
+					self.position += Vector2(3,0)
+					break
+		v_corrected = true
+	else:
+		v_corrected = false
 	#warning-ignore:return_value_discarded
 	self.move_and_slide(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,-1))
 
 func flip():
 	facing_right = !facing_right
+	self.look_direction.x *= -1
 	$Sprite.flip_h = !$Sprite.flip_h
 
 func _on_CoyoteTimer_timeout():
@@ -82,4 +110,3 @@ func _on_CoyoteTimer_timeout():
 
 func _on_JumpBufferTimer_timeout():
 	self.buffered_jump = false
-
