@@ -114,6 +114,11 @@ limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
+smoothing_speed = 4.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
@@ -130,5 +135,9 @@ anims/idle = SubResource( 3 )
 
 [node name="CameraTween" type="Tween" parent="Player"]
 playback_process_mode = 0
+[connection signal="jumped" from="Player" to="Player/CameraPivot" method="_on_Player_jumped"]
+[connection signal="rotate" from="Player" to="Player/CameraPivot" method="_on_Player_rotate"]
+[connection signal="touched_ground" from="Player" to="Player/CameraPivot" method="_on_Player_touched_ground"]
 [connection signal="timeout" from="Player/JumpBufferTimer" to="Player" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="Player/CoyoteTimer" to="Player" method="_on_CoyoteTimer_timeout"]
+[connection signal="tween_completed" from="Player/CameraPivot/Lookup_Tween" to="Player/CameraPivot" method="_on_Lookup_Tween_tween_completed"]

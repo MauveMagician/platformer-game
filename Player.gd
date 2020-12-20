@@ -3,9 +3,13 @@ extends KinematicBody2D
 const MOVE_ACCEL = 20
 const MAX_MOVE_SPEED = 120
 const JUMP_FORCE = 500
-const GRAVITY = 45
-const MAX_FALL_SPEED = 300
+const GRAVITY = 30
+const MAX_FALL_SPEED = 250
 const PEEK_TOLERANCE = 30
+
+signal jumped
+signal touched_ground
+signal rotate
 
 var y_velo = 0
 var speed = 0
@@ -38,7 +42,7 @@ func _physics_process(_delta):
 	self.speed = min(self.speed, self.MAX_MOVE_SPEED)
 	#Vertical Movement Code
 	y_velo += self.GRAVITY
-	#Camera Peeking
+	#Camera Control
 	if Input.is_action_pressed("look_up"):
 		if peek_count < 0:
 			peek_count = 0
@@ -56,6 +60,8 @@ func _physics_process(_delta):
 	else:
 		look_direction.y = 0
 		self.peek_count = 0
+	if not grounded:
+		emit_signal("jumped")
 	#Half Gravity Jump Peak
 	if not grounded and abs(y_velo) < (self.GRAVITY * 2):
 		y_velo -= 0.5 * self.GRAVITY
@@ -69,8 +75,11 @@ func _physics_process(_delta):
 	elif Input.is_action_just_released("jump") and self.y_velo < 0:
 		self.y_velo = 0
 	if grounded and self.y_velo >= 5:
+		#Refresh Coyote Jump
 		self.can_coyote = true
 		self.y_velo = 5
+		#Camera Control Signal
+		emit_signal("touched_ground")
 	#Coyote Timer
 	if not grounded and self.can_coyote and $CoyoteTimer.is_stopped():
 		self.coyote = true
