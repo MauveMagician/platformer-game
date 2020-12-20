@@ -9,7 +9,6 @@ const PEEK_TOLERANCE = 30
 
 signal jumped
 signal touched_ground
-signal rotate
 
 var y_velo = 0
 var speed = 0
