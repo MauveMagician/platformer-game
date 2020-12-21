@@ -19,11 +19,11 @@ var buffered_jump = false
 var v_corrected = false
 var look_direction = Vector2(1,0)
 var peek_count = 0
+var grounded = false
 
 func _physics_process(_delta):
 	#Horizontal Movement Code
 	var move_dir = 0
-	var grounded = self.is_on_floor()
 	if Input.is_action_pressed("move_right"):
 		self.speed += MOVE_ACCEL
 		move_dir = 1
@@ -40,7 +40,9 @@ func _physics_process(_delta):
 		flip()
 	self.speed = min(self.speed, self.MAX_MOVE_SPEED)
 	#Vertical Movement Code
-	y_velo += self.GRAVITY
+	#Gravity code
+	if not self.grounded:
+		y_velo += self.GRAVITY
 	#Camera Control
 	if Input.is_action_pressed("look_up"):
 		if peek_count < 0:
@@ -59,34 +61,37 @@ func _physics_process(_delta):
 	else:
 		look_direction.y = 0
 		self.peek_count = 0
-	if not grounded:
+	if not self.grounded:
 		emit_signal("jumped")
 	#Half Gravity Jump Peak
-	if not grounded and abs(y_velo) < (self.GRAVITY * 2):
+	if not self.grounded and abs(y_velo) < self.GRAVITY:
 		y_velo -= 0.5 * self.GRAVITY
-	if (grounded or coyote) and (Input.is_action_just_pressed("jump") or buffered_jump):
+	#Jump code
+	if (self.grounded or coyote) and (Input.is_action_just_pressed("jump") or buffered_jump):
 		self.y_velo = -JUMP_FORCE
+		self.coyote = false
+		self.can_coyote = false
 	#Jump Buffering code
-	elif not grounded and Input.is_action_just_pressed("jump") and $JumpBufferTimer.is_stopped():
+	elif not self.grounded and Input.is_action_just_pressed("jump") and $JumpBufferTimer.is_stopped():
 		self.buffered_jump = true
 		$JumpBufferTimer.start()
 	#Mario jump code - stop jumping on button release
 	elif Input.is_action_just_released("jump") and self.y_velo < 0:
 		self.y_velo = 0
-	if grounded and self.y_velo >= 5:
+	if self.grounded and self.y_velo >= 5:
 		#Refresh Coyote Jump
 		self.can_coyote = true
 		self.y_velo = 5
 		#Camera Control Signal
 		emit_signal("touched_ground")
 	#Coyote Timer
-	if not grounded and self.can_coyote and $CoyoteTimer.is_stopped():
+	if not self.grounded and self.can_coyote and $CoyoteTimer.is_stopped():
 		self.coyote = true
 		$CoyoteTimer.start()
 	if y_velo > self.MAX_FALL_SPEED:
 		y_velo = MAX_FALL_SPEED
 	#Corner Correction
-	if not grounded and not v_corrected and abs(y_velo) > 100:
+	if not self.grounded and not v_corrected and abs(y_velo) > 100:
 		if facing_right and not Input.is_action_pressed("move_right"):
 			for ray in $CornerCorrection_Right.get_children():
 				if $CornerCorrection_Left.get_child(1).is_colliding():
@@ -106,11 +111,12 @@ func _physics_process(_delta):
 		v_corrected = false
 	#warning-ignore:return_value_discarded
 	self.move_and_slide(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,-1))
+	self.grounded = self.is_on_floor()
 
 func flip():
 	facing_right = !facing_right
 	self.look_direction.x *= -1
-	$Sprite.flip_h = !$Sprite.flip_h
+	$PlayerSprite/Sprite.flip_h = !$PlayerSprite/Sprite.flip_h
 
 func _on_CoyoteTimer_timeout():
 	self.coyote = false

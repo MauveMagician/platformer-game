@@ -8,6 +8,7 @@ export var interpolate_cam_time = ORIGINAL_INTERPOLATE_CAM_TIME
 export var look_up_pixels = ORIGINAL_LOOK_UP_PIXELS
 export var camera_offset_distance = ORIGINAL_CAMERA_OFFSET_DISTANCE
 onready var parent = self.get_parent()
+onready var in_tree = true
 var y_direction = 1
 var ground_camera_mode = true
 
@@ -48,8 +49,10 @@ func _on_Player_touched_ground():
 		$Speedup_Timer.start()
 	ground_camera_mode = true
 
-func _on_Player_rotate():
-	pass # Replace with function body.
-
 func _on_Speedup_Timer_timeout():
 	self.interpolate_cam_time = ORIGINAL_INTERPOLATE_CAM_TIME
+
+func _on_PlayerVisible_screen_exited():
+	if in_tree:
+		$Lookup_Tween.stop_all()
+		$Camera_Offset.position = Vector2(0,0)
