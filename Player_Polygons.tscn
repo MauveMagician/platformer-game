@@ -1,21 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sprite/player_sprite.png" type="Texture" id=1]
+[ext_resource path="res://animation/tail_wag.tres" type="Animation" id=2]
 
-[sub_resource type="Animation" id=1]
-resource_name = "tail_wag"
-length = 1.5
-loop = true
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("Skeleton2D/Body/Tail:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 30, -0.25, 0, 0.25, 0, -30, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.5, 1, 1.5 )
-}
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "tail_wag"
+
+[sub_resource type="AnimationNodeStateMachine" id=2]
+"states/tail_wag 2/node" = SubResource( 4 )
+"states/tail_wag 2/position" = Vector2( 284, 89 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
 [node name="Player_Polygons" type="Node2D"]
 
@@ -82,7 +77,7 @@ uv = PoolVector2Array( 56, 68, 56, 65, 60, 65, 60, 66, 61, 66, 61, 68, 60, 68, 6
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
-visible = false
+position = Vector2( 1, 0 )
 
 [node name="Body" type="Bone2D" parent="Skeleton2D"]
 position = Vector2( 0, 10 )
@@ -115,21 +110,28 @@ rest = Transform2D( 1, 0, 0, 1, 1, 5 )
 default_length = 1.0
 
 [node name="R_Leg" type="Bone2D" parent="Skeleton2D/Body"]
-position = Vector2( -4, 1 )
-rest = Transform2D( 1, 0, 0, 1, -4, 1 )
+position = Vector2( -0.00918102, -3.49669 )
+rotation = 0.00390728
+rest = Transform2D( 1, 0, 0, 1, -0.00918102, -3.49669 )
 default_length = 1.0
 
 [node name="L_Leg" type="Bone2D" parent="Skeleton2D/Body"]
-position = Vector2( 3, 1 )
-rest = Transform2D( 1, 0, 0, 1, 3, 1 )
+position = Vector2( -0.00859928, -3.5129 )
+rest = Transform2D( 1, 0, 0, 1, -0.00859928, -3.5129 )
 default_length = 1.0
 
 [node name="Tail" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -2, -5 )
-rotation = 0.063385
-rest = Transform2D( 1, 0, 0, 1, -2, -5 )
+rotation = 0.141643
+rest = Transform2D( 0.996126, 0.0879334, -0.0879334, 0.996126, -2, -5 )
 default_length = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "tail_wag"
-anims/tail_wag = SubResource( 1 )
+anims/tail_wag = ExtResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 2 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 3 )

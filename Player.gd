@@ -116,7 +116,7 @@ func _physics_process(_delta):
 func flip():
 	facing_right = !facing_right
 	self.look_direction.x *= -1
-	$PlayerSprite/Sprite.flip_h = !$PlayerSprite/Sprite.flip_h
+	$PlayerSprite/Player_Polygons.scale.x *= -1
 
 func _on_CoyoteTimer_timeout():
 	self.coyote = false
