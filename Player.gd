@@ -110,6 +110,7 @@ func _physics_process(_delta):
 	else:
 		v_corrected = false
 	#warning-ignore:return_value_discarded
+	self.animation_control()
 	self.move_and_slide(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,-1))
 	self.grounded = self.is_on_floor()
 
@@ -117,6 +118,12 @@ func flip():
 	facing_right = !facing_right
 	self.look_direction.x *= -1
 	$PlayerSprite/Player_Polygons.scale.x *= -1
+
+func animation_control():
+	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
+			$PlayerSprite/Player_Polygons/AnimationPlayer.play("walk")
+	else:
+		$PlayerSprite/Player_Polygons/AnimationPlayer.play("rest")
 
 func _on_CoyoteTimer_timeout():
 	self.coyote = false
