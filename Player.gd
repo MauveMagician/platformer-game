@@ -10,6 +10,8 @@ const PEEK_TOLERANCE = 30
 signal jumped
 signal touched_ground
 
+onready var animation_state_machine = $PlayerSprite/Player_Polygons/AnimationTree.get("parameters/playback")
+
 var y_velo = 0
 var speed = 0
 var facing_right = true
@@ -27,13 +29,16 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("move_right"):
 		self.speed += MOVE_ACCEL
 		move_dir = 1
+		animation_state_machine.travel("walk")
 	elif Input.is_action_pressed("move_left"):
 		self.speed += MOVE_ACCEL
 		move_dir = -1
+		animation_state_machine.travel("walk")
 	if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
 		self.speed -= MOVE_ACCEL*2
 		if speed < 0:
 			speed = 0
+		animation_state_machine.travel("tail_wag")
 	if self.facing_right and move_dir < 0:
 		flip()
 	elif not self.facing_right and move_dir > 0:
@@ -110,7 +115,6 @@ func _physics_process(_delta):
 	else:
 		v_corrected = false
 	#warning-ignore:return_value_discarded
-	self.animation_control()
 	self.move_and_slide(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,-1))
 	self.grounded = self.is_on_floor()
 
@@ -118,12 +122,6 @@ func flip():
 	facing_right = !facing_right
 	self.look_direction.x *= -1
 	$PlayerSprite/Player_Polygons.scale.x *= -1
-
-func animation_control():
-	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
-			$PlayerSprite/Player_Polygons/AnimationPlayer.play("walk")
-	else:
-		$PlayerSprite/Player_Polygons/AnimationPlayer.play("rest")
 
 func _on_CoyoteTimer_timeout():
 	self.coyote = false

@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://sprite/player_sprite.png" type="Texture" id=1]
 [ext_resource path="res://animation/tail_wag.tres" type="Animation" id=2]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=1]
 resource_name = "rest"
-length = 0.2
+length = 0.001
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Skeleton2D/Body:position")
@@ -14,7 +14,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 10 ) ]
@@ -26,7 +26,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -38,7 +38,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, -12 ) ]
@@ -50,7 +50,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -62,7 +62,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -4, -8 ) ]
@@ -74,7 +74,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -86,7 +86,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 5, -8 ) ]
@@ -98,7 +98,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -110,7 +110,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -0.00918102, -3.49669 ) ]
@@ -122,7 +122,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -134,7 +134,7 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -0.00859928, -3.5129 ) ]
@@ -146,7 +146,7 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -158,7 +158,7 @@ tracks/12/loop_wrap = true
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -2, -5 ) ]
@@ -170,14 +170,13 @@ tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 5.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "walk"
+[sub_resource type="Animation" id=2]
 length = 0.75
 loop = true
 tracks/0/type = "value"
@@ -265,22 +264,35 @@ tracks/6/keys = {
 "values": [ -20.0, 0.0 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=2]
-animation = "tail_wag"
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "rest"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
+animation = "tail_wag"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
 
 [sub_resource type="AnimationNodeStateMachine" id=3]
-states/tail_wag/node = SubResource( 2 )
-states/tail_wag/position = Vector2( 284, 89 )
-states/walk/node = SubResource( 5 )
-states/walk/position = Vector2( 495, 89 )
-transitions = [ "tail_wag", "walk", SubResource( 6 ), "walk", "tail_wag", SubResource( 7 ) ]
+states/rest/node = SubResource( 6 )
+states/rest/position = Vector2( -707, -44 )
+states/tail_wag/node = SubResource( 5 )
+states/tail_wag/position = Vector2( -868, -138 )
+states/walk/node = SubResource( 7 )
+states/walk/position = Vector2( -553, -138 )
+transitions = [ "rest", "tail_wag", SubResource( 8 ), "tail_wag", "rest", SubResource( 9 ), "rest", "walk", SubResource( 10 ), "walk", "rest", SubResource( 11 ) ]
+start_node = "rest"
+graph_offset = Vector2( -1042, -203 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=4]
 
@@ -349,7 +361,6 @@ uv = PoolVector2Array( 56, 68, 56, 65, 60, 65, 60, 66, 61, 66, 61, 68, 60, 68, 6
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
-visible = false
 position = Vector2( 1, 0 )
 
 [node name="Body" type="Bone2D" parent="Skeleton2D"]
@@ -358,12 +369,13 @@ rest = Transform2D( 1, 0, 0, 1, 0, 10 )
 default_length = 10.0
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Body"]
-position = Vector2( 0, -12 )
+position = Vector2( -0.131375, -11.1314 )
 rest = Transform2D( 1, 0, 0, 1, 0, -12 )
 default_length = 4.0
 
 [node name="R_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -4, -8 )
+rotation = 0.345948
 rest = Transform2D( 1, 0, 0, 1, -4, -8 )
 default_length = 1.0
 
@@ -374,6 +386,7 @@ default_length = 1.0
 
 [node name="L_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( 5, -8 )
+rotation = -0.345948
 rest = Transform2D( 1, 0, 0, 1, 5, -8 )
 default_length = 1.0
 
@@ -384,28 +397,31 @@ default_length = 1.0
 
 [node name="R_Leg" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -0.00918102, -3.49669 )
+rotation = 0.276069
 rest = Transform2D( 1, 0, 0, 1, -0.00918102, -3.49669 )
 default_length = 1.0
 
 [node name="L_Leg" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -0.00859928, -3.5129 )
+rotation = -0.740918
 rest = Transform2D( 1, 0, 0, 1, -0.00859928, -3.5129 )
 default_length = 1.0
 
 [node name="Tail" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -2, -5 )
-rotation = 0.0872665
-scale = Vector2( 1, 1 )
+rotation = 0.0481513
 rest = Transform2D( 0.996126, 0.0879334, -0.0879334, 0.996126, -2, -5 )
 default_length = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "rest"
 method_call_mode = 1
-anims/rest = SubResource( 8 )
+anims/rest = SubResource( 1 )
 anims/tail_wag = ExtResource( 2 )
-anims/walk = SubResource( 1 )
+anims/walk = SubResource( 2 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 3 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource( 4 )
