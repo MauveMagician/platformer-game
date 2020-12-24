@@ -1,10 +1,105 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://sprite/player_sprite.png" type="Texture" id=1]
 [ext_resource path="res://animation/tail_wag.tres" type="Animation" id=2]
 
 [sub_resource type="Animation" id=1]
-resource_name = "rest"
+resource_name = "jump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skeleton2D/Body/Tail:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -5.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Skeleton2D/Body/R_Shoulder:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -175.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Skeleton2D/Body/L_Shoulder:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Skeleton2D/Body/R_Leg:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 23.3665 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Skeleton2D/Body/L_Leg:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -49.3734 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "look_down"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skeleton2D/Body/Head:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 30.0 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "look_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skeleton2D/Body/Head:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -30.0 ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.001
 loop = true
 tracks/0/type = "value"
@@ -41,7 +136,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -12 ) ]
+"values": [ Vector2( 0, -11 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Skeleton2D/Body/Head:rotation_degrees")
@@ -89,7 +184,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 5, -8 ) ]
+"values": [ Vector2( 2, -8 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Skeleton2D/Body/L_Shoulder:rotation_degrees")
@@ -175,8 +270,20 @@ tracks/13/keys = {
 "update": 0,
 "values": [ 5.0 ]
 }
+tracks/14/type = "value"
+tracks/14/path = NodePath("Head:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 0.75
 loop = true
 tracks/0/type = "value"
@@ -234,10 +341,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.3, 0.7 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -1, -12 ), Vector2( 0, -11 ) ]
+"values": [ Vector2( 3, -10 ), Vector2( 3, -11 ), Vector2( 3, -10 ), Vector2( 3, -10 ), Vector2( 3, -11 ), Vector2( 3, -10 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Skeleton2D/Body/R_Shoulder:rotation_degrees")
@@ -249,7 +356,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 20.0, 0.0 ]
+"values": [ 60.0, 0.0 ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Skeleton2D/Body/L_Shoulder:rotation_degrees")
@@ -261,46 +368,77 @@ tracks/6/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -20.0, 0.0 ]
+"values": [ -25.0, 0.0 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "jump"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "look_down"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "look_up"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
 animation = "rest"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "tail_wag"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
 switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=9]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
 
-[sub_resource type="AnimationNodeStateMachine" id=3]
-states/rest/node = SubResource( 6 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=11]
+states/jump/node = SubResource( 13 )
+states/jump/position = Vector2( -424, -44 )
+states/look_down/node = SubResource( 18 )
+states/look_down/position = Vector2( -1083.13, -113.964 )
+states/look_up/node = SubResource( 19 )
+states/look_up/position = Vector2( -985.129, -23.9643 )
+states/rest/node = SubResource( 4 )
 states/rest/position = Vector2( -707, -44 )
 states/tail_wag/node = SubResource( 5 )
 states/tail_wag/position = Vector2( -868, -138 )
-states/walk/node = SubResource( 7 )
+states/walk/node = SubResource( 6 )
 states/walk/position = Vector2( -553, -138 )
-transitions = [ "rest", "tail_wag", SubResource( 8 ), "tail_wag", "rest", SubResource( 9 ), "rest", "walk", SubResource( 10 ), "walk", "rest", SubResource( 11 ) ]
+transitions = [ "rest", "tail_wag", SubResource( 7 ), "tail_wag", "rest", SubResource( 8 ), "rest", "walk", SubResource( 9 ), "walk", "rest", SubResource( 10 ), "rest", "jump", SubResource( 14 ), "jump", "rest", SubResource( 15 ), "tail_wag", "look_down", SubResource( 20 ), "tail_wag", "look_up", SubResource( 21 ), "look_down", "tail_wag", SubResource( 22 ), "look_up", "tail_wag", SubResource( 23 ) ]
 start_node = "rest"
-graph_offset = Vector2( -1042, -203 )
+graph_offset = Vector2( -1276.13, -221.964 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=4]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=12]
 
 [node name="Player_Polygons" type="Node2D"]
 
 [node name="Head" type="Polygon2D" parent="."]
-position = Vector2( -50, -32 )
+position = Vector2( 0, -0.105049 )
 z_index = 1
+offset = Vector2( -50, -32 )
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
 polygon = PoolVector2Array( 39, 28, 39, 23, 40, 23, 40, 20, 41, 20, 41, 18, 40, 18, 40, 13, 42, 13, 42, 14, 45, 14, 45, 15, 46, 15, 46, 16, 48, 16, 48, 13, 50, 13, 50, 14, 54, 14, 54, 15, 56, 15, 56, 16, 58, 16, 58, 17, 59, 17, 59, 18, 60, 18, 60, 26, 61, 26, 61, 30, 60, 30, 60, 31, 59, 31, 59, 30, 58, 30, 58, 31, 57, 31, 57, 32, 46, 32, 46, 31, 43, 31, 43, 30, 42, 30, 42, 29, 40, 29, 40, 28 )
@@ -308,7 +446,9 @@ uv = PoolVector2Array( 39, 28, 39, 23, 40, 23, 40, 20, 41, 20, 41, 18, 40, 18, 4
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Body" type="Polygon2D" parent="."]
-position = Vector2( -50, -42 )
+position = Vector2( 0, 4 )
+scale = Vector2( 1.01471, 1 )
+offset = Vector2( -50, -46 )
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
 polygon = PoolVector2Array( 44, 50, 44, 45, 45, 45, 45, 41, 46, 41, 46, 40, 54, 40, 54, 41, 55, 41, 55, 43, 54, 43, 54, 48, 55, 48, 55, 51, 54, 51, 54, 52, 48, 52, 48, 51, 45, 51, 45, 50 )
@@ -325,7 +465,7 @@ uv = PoolVector2Array( 7, 62, 7, 66, 8, 66, 8, 67, 9, 67, 9, 68, 10, 68, 10, 69,
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ) ]
 
 [node name="Right_Hand" type="Polygon2D" parent="."]
-position = Vector2( -29, -42 )
+position = Vector2( -29.105, -42 )
 z_index = 3
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
@@ -334,13 +474,13 @@ uv = PoolVector2Array( 22, 49, 22, 46, 23, 46, 23, 43, 24, 43, 24, 42, 26, 42, 2
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Left_Hand" type="Polygon2D" parent="."]
-position = Vector2( -69, -42 )
+position = Vector2( -67.895, -42 )
 z_index = -1
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
-polygon = PoolVector2Array( 71, 43, 71, 47, 72, 47, 72, 49, 73, 49, 73, 50, 75, 50, 75, 49, 76, 49, 76, 45, 75, 45, 75, 43, 74, 43, 74, 42, 72, 42, 72, 43 )
-uv = PoolVector2Array( 71, 43, 71, 47, 72, 47, 72, 49, 73, 49, 73, 50, 75, 50, 75, 49, 76, 49, 76, 45, 75, 45, 75, 43, 74, 43, 74, 42, 72, 42, 72, 43 )
-bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
+polygon = PoolVector2Array( 71, 43, 71, 47, 72, 47, 72, 49, 73, 49, 73, 50, 75, 50, 75, 49, 76, 49, 76, 45, 75, 45, 75, 44, 75, 43, 74, 43, 74, 42, 72, 42, 72, 43 )
+uv = PoolVector2Array( 71, 43, 71, 47, 72, 47, 72, 49, 73, 49, 73, 50, 75, 50, 75, 49, 76, 49, 76, 45, 75, 45, 75, 44, 75, 43, 74, 43, 74, 42, 72, 42, 72, 43 )
+bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Right_Foot" type="Polygon2D" parent="."]
 position = Vector2( -44, -56 )
@@ -369,13 +509,13 @@ rest = Transform2D( 1, 0, 0, 1, 0, 10 )
 default_length = 10.0
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Body"]
-position = Vector2( -0.131375, -11.1314 )
-rest = Transform2D( 1, 0, 0, 1, 0, -12 )
+position = Vector2( 3, -10.4641 )
+rest = Transform2D( 1, 0, 0, 1, 0, -11 )
 default_length = 4.0
 
 [node name="R_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -4, -8 )
-rotation = 0.345948
+rotation = 0.357412
 rest = Transform2D( 1, 0, 0, 1, -4, -8 )
 default_length = 1.0
 
@@ -385,9 +525,9 @@ rest = Transform2D( 1, 0, 0, 1, -1, 5 )
 default_length = 1.0
 
 [node name="L_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
-position = Vector2( 5, -8 )
-rotation = -0.345948
-rest = Transform2D( 1, 0, 0, 1, 5, -8 )
+position = Vector2( 2, -8 )
+rotation = -0.148922
+rest = Transform2D( 1, 0, 0, 1, 2, -8 )
 default_length = 1.0
 
 [node name="L_Arm" type="Bone2D" parent="Skeleton2D/Body/L_Shoulder"]
@@ -397,31 +537,34 @@ default_length = 1.0
 
 [node name="R_Leg" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -0.00918102, -3.49669 )
-rotation = 0.276069
+rotation = -1.16363
 rest = Transform2D( 1, 0, 0, 1, -0.00918102, -3.49669 )
 default_length = 1.0
 
 [node name="L_Leg" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -0.00859928, -3.5129 )
-rotation = -0.740918
+rotation = 0.666179
 rest = Transform2D( 1, 0, 0, 1, -0.00859928, -3.5129 )
 default_length = 1.0
 
 [node name="Tail" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -2, -5 )
-rotation = 0.0481513
-rest = Transform2D( 0.996126, 0.0879334, -0.0879334, 0.996126, -2, -5 )
+rotation = 0.129022
+scale = Vector2( 1, 1 )
+rest = Transform2D( 0.996194, 0.0871557, -0.0871557, 0.996194, -2, -5 )
 default_length = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rest"
 method_call_mode = 1
-anims/rest = SubResource( 1 )
+anims/jump = SubResource( 1 )
+anims/look_down = SubResource( 17 )
+anims/look_up = SubResource( 16 )
+anims/rest = SubResource( 2 )
 anims/tail_wag = ExtResource( 2 )
-anims/walk = SubResource( 2 )
+anims/walk = SubResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 3 )
+tree_root = SubResource( 11 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource( 4 )
+parameters/playback = SubResource( 12 )

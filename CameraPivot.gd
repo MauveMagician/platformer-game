@@ -2,7 +2,7 @@ extends Position2D
 
 const ORIGINAL_INTERPOLATE_CAM_TIME = 1.0/3.0
 const ORIGINAL_LOOK_UP_PIXELS = 64
-const ORIGINAL_CAMERA_OFFSET_DISTANCE = 48
+const ORIGINAL_CAMERA_OFFSET_DISTANCE = 64
 
 export var interpolate_cam_time = ORIGINAL_INTERPOLATE_CAM_TIME
 export var look_up_pixels = ORIGINAL_LOOK_UP_PIXELS
@@ -21,7 +21,7 @@ func _physics_process(_delta):
 func update_pivot_angle():
 	self.y_direction = parent.get("look_direction").y
 	if ground_camera_mode:
-		$Lookup_Tween.interpolate_property($Camera_Offset,"position",$Camera_Offset.position, Vector2(parent.get("look_direction").x*48, look_up_pixels*self.y_direction), interpolate_cam_time,Tween.TRANS_LINEAR, Tween.EASE_OUT)
+		$Lookup_Tween.interpolate_property($Camera_Offset,"position",$Camera_Offset.position, Vector2(parent.get("look_direction").x*camera_offset_distance, look_up_pixels*self.y_direction), interpolate_cam_time,Tween.TRANS_LINEAR, Tween.EASE_OUT)
 		$Camera_Offset/Camera2D.drag_margin_h_enabled = false
 		$Camera_Offset/Camera2D.drag_margin_v_enabled = false
 		$Lookup_Tween.start()

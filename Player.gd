@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-const MOVE_ACCEL = 20
-const MAX_MOVE_SPEED = 120
+const MOVE_ACCEL = 10
+const MAX_MOVE_SPEED = 140
 const JUMP_FORCE = 500
 const GRAVITY = 30
 const MAX_FALL_SPEED = 250
@@ -23,22 +23,28 @@ var look_direction = Vector2(1,0)
 var peek_count = 0
 var grounded = false
 
+func _ready():
+	$PlayerSprite/Player_Polygons/AnimationTree.active = true
+
 func _physics_process(_delta):
 	#Horizontal Movement Code
 	var move_dir = 0
 	if Input.is_action_pressed("move_right"):
 		self.speed += MOVE_ACCEL
 		move_dir = 1
-		animation_state_machine.travel("walk")
+		if self.grounded:
+			animation_state_machine.travel("walk")
 	elif Input.is_action_pressed("move_left"):
 		self.speed += MOVE_ACCEL
 		move_dir = -1
-		animation_state_machine.travel("walk")
+		if self.grounded:
+			animation_state_machine.travel("walk")
 	if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
 		self.speed -= MOVE_ACCEL*2
 		if speed < 0:
 			speed = 0
-		animation_state_machine.travel("tail_wag")
+		if self.grounded:
+			animation_state_machine.travel("tail_wag")
 	if self.facing_right and move_dir < 0:
 		flip()
 	elif not self.facing_right and move_dir > 0:
@@ -46,7 +52,7 @@ func _physics_process(_delta):
 	self.speed = min(self.speed, self.MAX_MOVE_SPEED)
 	#Vertical Movement Code
 	#Gravity code
-	if not self.grounded:
+	if not grounded:
 		y_velo += self.GRAVITY
 	#Camera Control
 	if Input.is_action_pressed("look_up"):
@@ -56,6 +62,7 @@ func _physics_process(_delta):
 		if self.peek_count >= self.PEEK_TOLERANCE:
 			self.look_direction.y = -1
 			self.peek_count = self.PEEK_TOLERANCE
+			#animation_state_machine.travel("look_up")
 	elif Input.is_action_pressed("look_down"):
 		if peek_count > 0:
 			peek_count = 0
@@ -63,10 +70,12 @@ func _physics_process(_delta):
 		if self.peek_count <= -1 * self.PEEK_TOLERANCE:
 			self.look_direction.y = +1
 			self.peek_count = self.PEEK_TOLERANCE
+			#animation_state_machine.travel("look_down")
 	else:
 		look_direction.y = 0
 		self.peek_count = 0
 	if not self.grounded:
+		animation_state_machine.travel("jump")
 		emit_signal("jumped")
 	#Half Gravity Jump Peak
 	if not self.grounded and abs(y_velo) < self.GRAVITY:
@@ -115,7 +124,7 @@ func _physics_process(_delta):
 	else:
 		v_corrected = false
 	#warning-ignore:return_value_discarded
-	self.move_and_slide(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,-1))
+	self.move_and_slide_with_snap(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,1), Vector2(0,-1))
 	self.grounded = self.is_on_floor()
 
 func flip():

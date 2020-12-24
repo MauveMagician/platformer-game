@@ -121,7 +121,7 @@ scale = Vector2( 1, 0.9 )
 script = ExtResource( 4 )
 
 [node name="Camera_Offset" type="Position2D" parent="Player/CameraPivot"]
-position = Vector2( 48, 0 )
+position = Vector2( 64, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="Player/CameraPivot/Camera_Offset"]
 current = true
