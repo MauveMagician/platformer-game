@@ -472,7 +472,6 @@ graph_offset = Vector2( -1276.13, -221.964 )
 [node name="Player_Polygons" type="Node2D"]
 
 [node name="Head" type="Polygon2D" parent="."]
-position = Vector2( 0, -0.714286 )
 z_index = 1
 offset = Vector2( -50, -32 )
 texture = ExtResource( 1 )
@@ -483,7 +482,6 @@ bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 [node name="Body" type="Polygon2D" parent="."]
 position = Vector2( 0, 4 )
-scale = Vector2( 1, 0.901532 )
 offset = Vector2( -50, -46 )
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
@@ -501,7 +499,7 @@ uv = PoolVector2Array( 7, 62, 7, 66, 8, 66, 8, 67, 9, 67, 9, 68, 10, 68, 10, 69,
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ) ]
 
 [node name="Right_Hand" type="Polygon2D" parent="."]
-position = Vector2( -29.7143, -42 )
+position = Vector2( -29, -42 )
 z_index = 3
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
@@ -510,7 +508,7 @@ uv = PoolVector2Array( 22, 49, 22, 46, 23, 46, 23, 43, 24, 43, 24, 42, 26, 42, 2
 bones = [ NodePath("Body"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Shoulder"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/R_Shoulder/R_Arm"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Body/L_Shoulder"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Shoulder/L_Arm"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/R_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/L_Leg"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Body/Tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Left_Hand" type="Polygon2D" parent="."]
-position = Vector2( -67.2857, -42 )
+position = Vector2( -68, -42 )
 z_index = -1
 texture = ExtResource( 1 )
 skeleton = NodePath("../Skeleton2D")
@@ -545,13 +543,12 @@ rest = Transform2D( 1, 0, 0, 1, 0, 10 )
 default_length = 10.0
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Body"]
-position = Vector2( 3, -10 )
+position = Vector2( 0, -11 )
 rest = Transform2D( 1, 0, 0, 1, 0, -11 )
 default_length = 4.0
 
 [node name="R_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -4, -8 )
-rotation = 0.807682
 rest = Transform2D( 1, 0, 0, 1, -4, -8 )
 default_length = 1.0
 
@@ -562,7 +559,6 @@ default_length = 1.0
 
 [node name="L_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( 2, -8 )
-rotation = 0.647288
 rest = Transform2D( 1, 0, 0, 1, 2, -8 )
 default_length = 1.0
 
@@ -573,19 +569,17 @@ default_length = 1.0
 
 [node name="R_Leg" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -0.00918102, -3.49669 )
-rotation = 0.295858
 rest = Transform2D( 1, 0, 0, 1, -0.00918102, -3.49669 )
 default_length = 1.0
 
 [node name="L_Leg" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -0.00859928, -3.5129 )
-rotation = -0.760963
 rest = Transform2D( 1, 0, 0, 1, -0.00859928, -3.5129 )
 default_length = 1.0
 
 [node name="Tail" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -2, -5 )
-rotation = 0.0523599
+rotation = 0.0872665
 scale = Vector2( 1, 1 )
 rest = Transform2D( 0.996194, 0.0871557, -0.0871557, 0.996194, -2, -5 )
 default_length = 1.0
