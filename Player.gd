@@ -22,6 +22,7 @@ var v_corrected = false
 var look_direction = Vector2(1,0)
 var peek_count = 0
 var grounded = false
+var can_attack = true
 
 func _ready():
 	$PlayerSprite/Player_Polygons/AnimationTree.active = true
@@ -123,6 +124,14 @@ func _physics_process(_delta):
 		v_corrected = true
 	else:
 		v_corrected = false
+	#Attack Code
+	if Input.is_action_pressed("attack_1") and self.can_attack:
+		var new_axe = Preloader.axe_projectile.instance()
+		new_axe.velocity = Vector2(self.look_direction.x*(self.speed/50)+(1.5*self.look_direction.x),-4)
+		new_axe.position = self.global_position
+		self.get_parent().add_child(new_axe)
+		self.can_attack = false
+		$AttackCooldown.start()
 	#warning-ignore:return_value_discarded
 	self.move_and_slide_with_snap(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,1), Vector2(0,-1))
 	self.grounded = self.is_on_floor()
@@ -138,3 +147,6 @@ func _on_CoyoteTimer_timeout():
 
 func _on_JumpBufferTimer_timeout():
 	self.buffered_jump = false
+
+func _on_AttackCooldown_timeout():
+	self.can_attack = true

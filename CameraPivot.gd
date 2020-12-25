@@ -8,7 +8,6 @@ export var interpolate_cam_time = ORIGINAL_INTERPOLATE_CAM_TIME
 export var look_up_pixels = ORIGINAL_LOOK_UP_PIXELS
 export var camera_offset_distance = ORIGINAL_CAMERA_OFFSET_DISTANCE
 onready var parent = self.get_parent()
-onready var in_tree = true
 var y_direction = 1
 var ground_camera_mode = true
 
@@ -53,6 +52,12 @@ func _on_Speedup_Timer_timeout():
 	self.interpolate_cam_time = ORIGINAL_INTERPOLATE_CAM_TIME
 
 func _on_PlayerVisible_screen_exited():
-	if in_tree:
-		$Lookup_Tween.stop_all()
-		$Camera_Offset.position = Vector2(0,0)
+	$Lookup_Tween.stop_all()
+	$Camera_Offset.position = Vector2(0,0)
+	$Camera_Offset/Camera2D.smoothing_enabled = false
+	var t = Timer.new()
+	t.set_wait_time(0.25)
+	t.set_one_shot(true)
+	t.autostart = true
+	yield(t, "timeout")
+	$Camera_Offset/Camera2D.smoothing_enabled = true
