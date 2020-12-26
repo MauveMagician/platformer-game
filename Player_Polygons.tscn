@@ -1,8 +1,7 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://sprite/player_sprite.png" type="Texture" id=1]
 [ext_resource path="res://animation/tail_wag.tres" type="Animation" id=2]
-[ext_resource path="res://sprite/axe1.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "jump"
@@ -284,8 +283,9 @@ tracks/14/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=5]
 resource_name = "throw_axe"
+length = 0.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Skeleton2D/Body/R_Shoulder:rotation_degrees")
@@ -294,13 +294,13 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 11, 1.1487, 1 ),
 "update": 0,
 "values": [ 100.0, 229.794, 330.01 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.75
 loop = true
 tracks/0/type = "value"
@@ -424,28 +424,26 @@ tracks/9/keys = {
 "values": [ 37.0869 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "jump"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "look_down"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "look_up"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "rest"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "tail_wag"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "throw_axe"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
 switch_mode = 2
@@ -458,33 +456,45 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=22]
-states/jump/node = SubResource( 6 )
-states/jump/position = Vector2( -424, -44 )
-states/look_down/node = SubResource( 7 )
-states/look_down/position = Vector2( -1083.13, -113.964 )
-states/look_up/node = SubResource( 8 )
-states/look_up/position = Vector2( -985.129, -23.9643 )
-states/rest/node = SubResource( 9 )
-states/rest/position = Vector2( -707, -44 )
-states/tail_wag/node = SubResource( 10 )
-states/tail_wag/position = Vector2( -868, -138 )
-states/walk/node = SubResource( 11 )
-states/walk/position = Vector2( -553, -138 )
-transitions = [ "rest", "tail_wag", SubResource( 12 ), "tail_wag", "rest", SubResource( 13 ), "rest", "walk", SubResource( 14 ), "walk", "rest", SubResource( 15 ), "rest", "jump", SubResource( 16 ), "jump", "rest", SubResource( 17 ), "tail_wag", "look_down", SubResource( 18 ), "tail_wag", "look_up", SubResource( 19 ), "look_down", "tail_wag", SubResource( 20 ), "look_up", "tail_wag", SubResource( 21 ) ]
-start_node = "rest"
-graph_offset = Vector2( -1276.13, -221.964 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=26]
+states/jump/node = SubResource( 7 )
+states/jump/position = Vector2( -424, -44 )
+states/look_down/node = SubResource( 8 )
+states/look_down/position = Vector2( -1084.13, -114.964 )
+states/look_up/node = SubResource( 9 )
+states/look_up/position = Vector2( -985.129, -23.9643 )
+states/rest/node = SubResource( 10 )
+states/rest/position = Vector2( -707, -44 )
+states/tail_wag/node = SubResource( 11 )
+states/tail_wag/position = Vector2( -868, -138 )
+states/throw_axe/node = SubResource( 12 )
+states/throw_axe/position = Vector2( -700.82, -184.22 )
+states/walk/node = SubResource( 13 )
+states/walk/position = Vector2( -553, -138 )
+transitions = [ "rest", "tail_wag", SubResource( 14 ), "tail_wag", "rest", SubResource( 15 ), "rest", "walk", SubResource( 16 ), "walk", "rest", SubResource( 17 ), "rest", "jump", SubResource( 18 ), "jump", "rest", SubResource( 19 ), "tail_wag", "look_down", SubResource( 20 ), "tail_wag", "look_up", SubResource( 21 ), "look_down", "tail_wag", SubResource( 22 ), "look_up", "tail_wag", SubResource( 23 ), "throw_axe", "rest", SubResource( 24 ), "rest", "throw_axe", SubResource( 25 ) ]
+start_node = "rest"
+graph_offset = Vector2( -1244.82, -221.22 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=27]
 
 [node name="Player_Polygons" type="Node2D"]
 
@@ -566,16 +576,9 @@ default_length = 4.0
 
 [node name="R_Shoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2( -4, -8 )
-rotation = 4.01067
+rotation = 1.74533
 rest = Transform2D( 1, 0, 0, 1, -4, -8 )
 default_length = 1.0
-
-[node name="axe1" type="Sprite" parent="Skeleton2D/Body/R_Shoulder"]
-visible = false
-position = Vector2( 8.62649, 4.05774 )
-rotation = 1.5708
-z_index = 1
-texture = ExtResource( 3 )
 
 [node name="R_Arm" type="Bone2D" parent="Skeleton2D/Body/R_Shoulder"]
 position = Vector2( -1, 5 )
@@ -617,10 +620,10 @@ anims/look_down = SubResource( 2 )
 anims/look_up = SubResource( 3 )
 anims/rest = SubResource( 4 )
 anims/tail_wag = ExtResource( 2 )
-anims/throw_axe = SubResource( 24 )
-anims/walk = SubResource( 5 )
+anims/throw_axe = SubResource( 5 )
+anims/walk = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 22 )
+tree_root = SubResource( 26 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 23 )
+parameters/playback = SubResource( 27 )

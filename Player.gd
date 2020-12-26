@@ -23,6 +23,7 @@ var look_direction = Vector2(1,0)
 var peek_count = 0
 var grounded = false
 var can_attack = true
+var animation_lock = false
 
 func _ready():
 	$PlayerSprite/Player_Polygons/AnimationTree.active = true
@@ -30,22 +31,23 @@ func _ready():
 func _physics_process(_delta):
 	#Horizontal Movement Code
 	var move_dir = 0
-	if Input.is_action_pressed("move_right"):
-		self.speed += MOVE_ACCEL
-		move_dir = 1
-		if self.grounded:
-			animation_state_machine.travel("walk")
-	elif Input.is_action_pressed("move_left"):
-		self.speed += MOVE_ACCEL
-		move_dir = -1
-		if self.grounded:
-			animation_state_machine.travel("walk")
-	if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
-		self.speed -= MOVE_ACCEL*2
-		if speed < 0:
-			speed = 0
-		if self.grounded:
-			animation_state_machine.travel("tail_wag")
+	if not animation_lock:
+		if Input.is_action_pressed("move_right"):
+			self.speed += MOVE_ACCEL
+			move_dir = 1
+			if self.grounded:
+				animation_state_machine.travel("walk")
+		elif Input.is_action_pressed("move_left"):
+			self.speed += MOVE_ACCEL
+			move_dir = -1
+			if self.grounded:
+				animation_state_machine.travel("walk")
+		if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
+			self.speed -= MOVE_ACCEL*2
+			if speed < 0:
+				speed = 0
+			if self.grounded:
+				animation_state_machine.travel("tail_wag")
 	if self.facing_right and move_dir < 0:
 		flip()
 	elif not self.facing_right and move_dir > 0:
@@ -76,13 +78,14 @@ func _physics_process(_delta):
 		look_direction.y = 0
 		self.peek_count = 0
 	if not self.grounded:
-		animation_state_machine.travel("jump")
+		if not self.animation_lock:
+			animation_state_machine.travel("jump")
 		emit_signal("jumped")
 	#Half Gravity Jump Peak
 	if not self.grounded and abs(y_velo) < self.GRAVITY:
 		y_velo -= 0.5 * self.GRAVITY
 	#Jump code
-	if (self.grounded or coyote) and (Input.is_action_just_pressed("jump") or buffered_jump):
+	if (self.grounded or coyote) and (Input.is_action_just_pressed("jump") or buffered_jump) and not self.animation_lock:
 		self.y_velo = -JUMP_FORCE
 		self.coyote = false
 		self.can_coyote = false
@@ -128,10 +131,18 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("attack_1") and self.can_attack:
 		var new_axe = Preloader.axe_projectile.instance()
 		new_axe.velocity = Vector2(self.look_direction.x*(self.speed/50)+(1.5*self.look_direction.x),-4)
-		new_axe.position = self.global_position
+		new_axe.global_position = self.global_position + (Vector2(-12, 10) * self.look_direction)
+		new_axe.rotation_degrees = -170
 		self.get_parent().add_child(new_axe)
 		self.can_attack = false
+		if self.grounded:
+			self.animation_lock = true
+			self.animation_state_machine.travel("throw_axe")
+			$AnimationLockTimer.start()
 		$AttackCooldown.start()
+		if not self.facing_right:
+			new_axe.rotation_direction = -1
+			new_axe.sprite.flip_h = true
 	#warning-ignore:return_value_discarded
 	self.move_and_slide_with_snap(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,1), Vector2(0,-1))
 	self.grounded = self.is_on_floor()
@@ -150,3 +161,6 @@ func _on_JumpBufferTimer_timeout():
 
 func _on_AttackCooldown_timeout():
 	self.can_attack = true
+
+func _on_AnimationLockTimer_timeout():
+	self.animation_lock = false

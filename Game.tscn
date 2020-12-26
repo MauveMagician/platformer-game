@@ -92,6 +92,11 @@ process_mode = 0
 wait_time = 0.75
 one_shot = true
 
+[node name="AnimationLockTimer" type="Timer" parent="Player"]
+process_mode = 0
+wait_time = 0.5
+one_shot = true
+
 [node name="Equipment" type="Node" parent="Player"]
 
 [node name="CornerCorrection_Left" type="Node2D" parent="Player"]
@@ -195,6 +200,7 @@ texture = ExtResource( 6 )
 [connection signal="timeout" from="Player/JumpBufferTimer" to="Player" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="Player/CoyoteTimer" to="Player" method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Player/AttackCooldown" to="Player" method="_on_AttackCooldown_timeout"]
+[connection signal="timeout" from="Player/AnimationLockTimer" to="Player" method="_on_AnimationLockTimer_timeout"]
 [connection signal="screen_exited" from="Player/PlayerVisible" to="Player/CameraPivot" method="_on_PlayerVisible_screen_exited"]
 [connection signal="tween_completed" from="Player/CameraPivot/Lookup_Tween" to="Player/CameraPivot" method="_on_Lookup_Tween_tween_completed"]
 [connection signal="timeout" from="Player/CameraPivot/Speedup_Timer" to="Player/CameraPivot" method="_on_Speedup_Timer_timeout"]

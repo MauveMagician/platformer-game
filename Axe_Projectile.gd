@@ -6,15 +6,15 @@ const MAX_FALL_SPEED = 10
 const ROTATION_ACCEL = 0.05
 
 var rotation_speed = 5
+var rotation_direction = 1
 var velocity = Vector2(0,0)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+# warning-ignore:unused_class_variable
+onready var sprite = $Sprite
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	self.rotation_degrees += rotation_speed
+	self.rotation_degrees += rotation_speed * rotation_direction
 	rotation_speed += ROTATION_ACCEL
 	if self.rotation_speed > MAXIMUM_ROTATION_SPEED:
 		self.rotation_speed = MAXIMUM_ROTATION_SPEED
