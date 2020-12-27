@@ -16,12 +16,15 @@ _global_script_class_icons={
 [application]
 
 config/name="First-platformer"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://screen/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Preloader="*res://Preloader.tscn"
+Hitstop="*res://Hitstop.tscn"
+ScreenShake="*res://from-codebase/ScreenShake.tscn"
+KoboldPocket="*res://KoboldPocket.tscn"
 
 [debug]
 

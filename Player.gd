@@ -11,6 +11,7 @@ signal jumped
 signal touched_ground
 
 onready var animation_state_machine = $PlayerSprite/Player_Polygons/AnimationTree.get("parameters/playback")
+onready var tilemap = get_parent().get_node("TileMap")
 
 var y_velo = 0
 var speed = 0
@@ -25,8 +26,17 @@ var grounded = false
 var can_attack = true
 var animation_lock = false
 
+export var maximum_armor = 1
+export var armor = 1
+export var maximum_magic = 100
+export var magic = 100
+
+func get_class():
+	return "Player"
+
 func _ready():
 	$PlayerSprite/Player_Polygons/AnimationTree.active = true
+	ScreenShake.set("camera", $CameraPivot/Camera_Offset/Camera2D)
 
 func _physics_process(_delta):
 	#Horizontal Movement Code
@@ -130,8 +140,11 @@ func _physics_process(_delta):
 	#Attack Code
 	if Input.is_action_pressed("attack_1") and self.can_attack:
 		var new_axe = Preloader.axe_projectile.instance()
-		new_axe.velocity = Vector2(self.look_direction.x*(self.speed/50)+(1.5*self.look_direction.x),-4)
-		new_axe.global_position = self.global_position + (Vector2(-12, 10) * self.look_direction)
+		if not self.grounded:
+			new_axe.velocity = Vector2(self.look_direction.x*(self.speed/50)+(1.5*self.look_direction.x),-4)
+		else:
+			new_axe.velocity = Vector2((1.5*self.look_direction.x),-4)
+		new_axe.global_position = self.global_position + (Vector2(-12, -32) * self.look_direction)
 		new_axe.rotation_degrees = -170
 		self.get_parent().add_child(new_axe)
 		self.can_attack = false
@@ -151,6 +164,14 @@ func flip():
 	facing_right = !facing_right
 	self.look_direction.x *= -1
 	$PlayerSprite/Player_Polygons.scale.x *= -1
+
+func set_camera_limits():
+	var map_limits = tilemap.get_used_rect()
+	var map_cellsize = tilemap.cell_size
+	$CameraPivot/Camera_Offset/Camera2D.limit_left = map_limits.position.x * map_cellsize.x
+	$CameraPivot/Camera_Offset/Camera2D.limit_right = map_limits.end.x * map_cellsize.x
+	$CameraPivot/Camera_Offset/Camera2D.limit_top = map_limits.position.y * map_cellsize.y
+	$CameraPivot/Camera_Offset/Camera2D.limit_bottom = map_limits.end.y * map_cellsize.y
 
 func _on_CoyoteTimer_timeout():
 	self.coyote = false

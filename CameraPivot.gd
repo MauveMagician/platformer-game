@@ -56,7 +56,7 @@ func _on_PlayerVisible_screen_exited():
 	$Camera_Offset.position = Vector2(0,0)
 	$Camera_Offset/Camera2D.smoothing_enabled = false
 	var t = Timer.new()
-	t.set_wait_time(0.25)
+	t.set_wait_time(0.1)
 	t.set_one_shot(true)
 	t.autostart = true
 	yield(t, "timeout")
