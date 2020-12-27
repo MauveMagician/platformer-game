@@ -47,27 +47,27 @@ func _physics_process(_delta):
 			move_dir = 1
 			if self.grounded:
 				animation_state_machine.travel("walk")
+				if abs(self.speed) > MAX_MOVE_SPEED/2:
+					$PlayerSprite/FootDust.emitting = true
 		elif Input.is_action_pressed("move_left"):
 			self.speed += MOVE_ACCEL
 			move_dir = -1
 			if self.grounded:
 				animation_state_machine.travel("walk")
+				if abs(self.speed) > MAX_MOVE_SPEED/2:
+					$PlayerSprite/FootDust.emitting = true
 		if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
 			self.speed -= MOVE_ACCEL*2
 			if speed < 0:
 				speed = 0
 			if self.grounded:
 				animation_state_machine.travel("tail_wag")
+				$PlayerSprite/FootDust.emitting = false
 	if self.facing_right and move_dir < 0:
 		flip()
 	elif not self.facing_right and move_dir > 0:
 		flip()
-	var prev_speed = self.speed
 	self.speed = min(self.speed, self.MAX_MOVE_SPEED)
-	if prev_speed != self.speed:
-		$PlayerSprite/FootDust.emitting = true
-	else:
-		$PlayerSprite/FootDust.emitting = false
 	#Vertical Movement Code
 	#Gravity code
 	if not grounded:
@@ -145,6 +145,7 @@ func _physics_process(_delta):
 		v_corrected = false
 	#Attack Code
 	if Input.is_action_pressed("attack_1") and self.can_attack:
+		$PlayerSprite/FootDust.emitting = false
 		var new_axe = Preloader.axe_projectile.instance()
 		if not self.grounded:
 			new_axe.velocity = Vector2(self.look_direction.x*(self.speed/50)+(1.5*self.look_direction.x),-4)
