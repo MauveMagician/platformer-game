@@ -62,11 +62,17 @@ func _physics_process(_delta):
 		flip()
 	elif not self.facing_right and move_dir > 0:
 		flip()
+	var prev_speed = self.speed
 	self.speed = min(self.speed, self.MAX_MOVE_SPEED)
+	if prev_speed != self.speed:
+		$PlayerSprite/FootDust.emitting = true
+	else:
+		$PlayerSprite/FootDust.emitting = false
 	#Vertical Movement Code
 	#Gravity code
 	if not grounded:
 		y_velo += self.GRAVITY
+		$PlayerSprite/FootDust.emitting = false
 	#Camera Control
 	if Input.is_action_pressed("look_up"):
 		if peek_count < 0:
@@ -144,7 +150,7 @@ func _physics_process(_delta):
 			new_axe.velocity = Vector2(self.look_direction.x*(self.speed/50)+(1.5*self.look_direction.x),-4)
 		else:
 			new_axe.velocity = Vector2((1.5*self.look_direction.x),-4)
-		new_axe.global_position = self.global_position + (Vector2(-12, -32) * self.look_direction)
+		new_axe.global_position = self.global_position + Vector2(-12*self.look_direction.x, 0)
 		new_axe.rotation_degrees = -170
 		self.get_parent().add_child(new_axe)
 		self.can_attack = false
@@ -163,7 +169,7 @@ func _physics_process(_delta):
 func flip():
 	facing_right = !facing_right
 	self.look_direction.x *= -1
-	$PlayerSprite/Player_Polygons.scale.x *= -1
+	$PlayerSprite.scale.x *= -1
 
 func set_camera_limits():
 	var map_limits = tilemap.get_used_rect()
