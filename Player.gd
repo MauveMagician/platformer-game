@@ -165,7 +165,11 @@ func _physics_process(_delta):
 			new_axe.sprite.flip_h = true
 	#warning-ignore:return_value_discarded
 	self.move_and_slide_with_snap(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,1), Vector2(0,-1))
+	var prv_ground = self.grounded
 	self.grounded = self.is_on_floor()
+	if self.grounded and not prv_ground:
+		$PlayerSprite/FallParticle.restart()
+		$PlayerSprite/FallParticle.emitting = true
 
 func flip():
 	facing_right = !facing_right

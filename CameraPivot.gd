@@ -59,6 +59,6 @@ func _on_PlayerVisible_screen_exited():
 	t.set_wait_time(1)
 	t.set_one_shot(true)
 	t.autostart = true
-	get_parent().add_child(t)
+	get_parent().call_deferred("add_child", t)
 	yield(t, "timeout")
 	$Camera_Offset/Camera2D.smoothing_enabled = true
