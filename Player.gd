@@ -26,11 +26,6 @@ var grounded = false
 var can_attack = true
 var animation_lock = false
 
-export var maximum_armor = 1
-export var armor = 1
-export var maximum_magic = 100
-export var magic = 100
-
 func get_class():
 	return "Player"
 
@@ -47,14 +42,14 @@ func _physics_process(_delta):
 			move_dir = 1
 			if self.grounded:
 				animation_state_machine.travel("walk")
-				if abs(self.speed) > MAX_MOVE_SPEED/2:
+				if abs(self.speed) > MAX_MOVE_SPEED/2.0:
 					$PlayerSprite/FootDust.emitting = true
 		elif Input.is_action_pressed("move_left"):
 			self.speed += MOVE_ACCEL
 			move_dir = -1
 			if self.grounded:
 				animation_state_machine.travel("walk")
-				if abs(self.speed) > MAX_MOVE_SPEED/2:
+				if abs(self.speed) > MAX_MOVE_SPEED/2.0:
 					$PlayerSprite/FootDust.emitting = true
 		if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
 			self.speed -= MOVE_ACCEL*2
@@ -163,6 +158,30 @@ func _physics_process(_delta):
 		if not self.facing_right:
 			new_axe.rotation_direction = -1
 			new_axe.sprite.flip_h = true
+	if Input.is_action_pressed("attack_2") and self.can_attack:
+		$PlayerSprite/FootDust.emitting = false
+		var new_fireball = Preloader.fireball_projectile.instance()
+		var fireball_y_arc = 60
+		var fireball_x_arc = 180*self.look_direction.x
+		if Input.is_action_pressed("look_down") and not self.grounded:
+			fireball_x_arc = 0
+			fireball_y_arc = 180
+		elif Input.is_action_pressed("look_up"):
+			fireball_x_arc = 0
+			fireball_y_arc = -180
+		print("x:" + String(fireball_x_arc) + " y:" + String(fireball_y_arc))
+		new_fireball.apply_impulse(Vector2(0,0), Vector2(fireball_x_arc, fireball_y_arc))
+		new_fireball.global_position = self.global_position + Vector2(-10*self.look_direction.x, -6)
+		self.get_parent().add_child(new_fireball)
+		self.can_attack = false
+		if self.grounded:
+			self.animation_lock = true
+			self.animation_state_machine.travel("throw_axe")
+			$AnimationLockTimer.start()
+		$AttackCooldown.start()
+		if not self.facing_right:
+			new_fireball.rotation_direction = -1
+			new_fireball.sprite.flip_h = true
 	#warning-ignore:return_value_discarded
 	self.move_and_slide_with_snap(Vector2(move_dir*self.speed, self.y_velo), Vector2(0,1), Vector2(0,-1))
 	var prv_ground = self.grounded
