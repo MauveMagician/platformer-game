@@ -13,14 +13,14 @@ radius = 9.0
 
 [sub_resource type="CircleShape2D" id=3]
 
-[sub_resource type="Curve" id=6]
-max_value = 100.0
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.977011, 99.3182 ), 0.0, 0.0, 0, 0 ]
-
 [sub_resource type="Curve" id=4]
+max_value = 100.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.482759, 100 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=5]
 _data = [ Vector2( 0.00574712, 0.0113636 ), 0.0, 0.0, 0, 0, Vector2( 0.505747, 0.811364 ), 0.0, 0.0, 0, 0, Vector2( 0.982759, 0.0295454 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0.119205, 0.933775 )
 colors = PoolColorArray( 0.996078, 0.415686, 0, 1, 0.996078, 0.415686, 0, 0 )
 
@@ -57,7 +57,7 @@ autostart = true
 
 [node name="DespawnParticle" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 32
+amount = 24
 lifetime = 1.25
 one_shot = true
 explosiveness = 1.0
@@ -68,12 +68,12 @@ emission_sphere_radius = 1.0
 direction = Vector2( 0, 0 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
-radial_accel = 150.0
+radial_accel = 180.0
 damping = 100.0
-damping_curve = SubResource( 6 )
+damping_curve = SubResource( 4 )
 scale_amount = 0.5
 scale_amount_random = 0.5
-scale_amount_curve = SubResource( 4 )
-color_ramp = SubResource( 5 )
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_Hurtbox_body_entered"]
 [connection signal="timeout" from="LifetimeTimer" to="." method="_on_LifetimeTimer_timeout"]

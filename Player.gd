@@ -169,7 +169,6 @@ func _physics_process(_delta):
 		elif Input.is_action_pressed("look_up"):
 			fireball_x_arc = 0
 			fireball_y_arc = -180
-		print("x:" + String(fireball_x_arc) + " y:" + String(fireball_y_arc))
 		new_fireball.apply_impulse(Vector2(0,0), Vector2(fireball_x_arc, fireball_y_arc))
 		new_fireball.global_position = self.global_position + Vector2(-10*self.look_direction.x, -6)
 		self.get_parent().add_child(new_fireball)
@@ -196,8 +195,9 @@ func flip():
 	$PlayerSprite.scale.x *= -1
 
 func set_camera_limits():
-	var map_limits = tilemap.get_used_rect()
-	var map_cellsize = tilemap.cell_size
+	self.tilemap = get_parent().get_node("TileMap")
+	var map_limits = self.tilemap.get_used_rect()
+	var map_cellsize = self.tilemap.cell_size
 	$CameraPivot/Camera_Offset/Camera2D.limit_left = map_limits.position.x * map_cellsize.x
 	$CameraPivot/Camera_Offset/Camera2D.limit_right = map_limits.end.x * map_cellsize.x
 	$CameraPivot/Camera_Offset/Camera2D.limit_top = map_limits.position.y * map_cellsize.y

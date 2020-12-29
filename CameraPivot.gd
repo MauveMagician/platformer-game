@@ -52,13 +52,14 @@ func _on_Speedup_Timer_timeout():
 	self.interpolate_cam_time = ORIGINAL_INTERPOLATE_CAM_TIME
 
 func _on_PlayerVisible_screen_exited():
-	$Lookup_Tween.stop_all()
-	$Camera_Offset.position = Vector2(0,0)
-	$Camera_Offset/Camera2D.smoothing_enabled = false
-	var t = Timer.new()
-	t.set_wait_time(1)
-	t.set_one_shot(true)
-	t.autostart = true
-	get_parent().call_deferred("add_child", t)
-	yield(t, "timeout")
-	$Camera_Offset/Camera2D.smoothing_enabled = true
+	pass
+#	$Lookup_Tween.stop_all()
+#	$Camera_Offset.position = Vector2(0,0)
+#	$Camera_Offset/Camera2D.smoothing_enabled = false
+#	var t = Timer.new()
+#	t.set_wait_time(1)
+#	t.set_one_shot(true)
+#	t.autostart = true
+#	get_parent().call_deferred("add_child", t)
+#	yield(t, "timeout")
+#	$Camera_Offset/Camera2D.smoothing_enabled = true
