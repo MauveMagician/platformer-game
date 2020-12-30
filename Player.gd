@@ -164,10 +164,10 @@ func _physics_process(_delta):
 		var fireball_y_arc = 60
 		var fireball_x_arc = 180*self.look_direction.x
 		if Input.is_action_pressed("look_down") and not self.grounded:
-			fireball_x_arc = 0
+			fireball_x_arc = 15*self.look_direction.x
 			fireball_y_arc = 180
 		elif Input.is_action_pressed("look_up"):
-			fireball_x_arc = 0
+			fireball_x_arc = 15*self.look_direction.x
 			fireball_y_arc = -180
 		new_fireball.apply_impulse(Vector2(0,0), Vector2(fireball_x_arc, fireball_y_arc))
 		new_fireball.global_position = self.global_position + Vector2(-10*self.look_direction.x, -6)
